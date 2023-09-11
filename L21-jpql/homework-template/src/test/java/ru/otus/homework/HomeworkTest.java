@@ -11,9 +11,13 @@ import org.hibernate.engine.jdbc.spi.SqlStatementLogger;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ru.otus.crm.model.Address;
+import ru.otus.crm.model.Client;
+import ru.otus.crm.model.Phone;
 
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -28,7 +32,7 @@ class HomeworkTest {
 
     // Это надо раскомментировать, у выполненного ДЗ, все тесты должны проходить
     // Кроме удаления комментирования, тестовый класс менять нельзя
-/*
+
     @BeforeEach
     public void setUp() {
         makeTestDependencies();
@@ -59,7 +63,7 @@ class HomeworkTest {
         });
 
         var client = new Client(null, "Vasya", new Address(null, "AnyStreet"),
-            List.of(new Phone(null, "13-555-22"), new Phone(null, "14-666-333")));
+                List.of(new Phone(null, "13-555-22"), new Phone(null, "14-666-333")));
         try (var session = sessionFactory.openSession()) {
             session.getTransaction().begin();
             session.persist(client);
@@ -69,8 +73,8 @@ class HomeworkTest {
 
             var loadedClient = session.find(Client.class, 1L).clone();
             assertThat(loadedClient)
-                .usingRecursiveComparison()
-                .isEqualTo(client);
+                    .usingRecursiveComparison()
+                    .isEqualTo(client);
         }
     }
 
@@ -91,15 +95,15 @@ class HomeworkTest {
     private void assertThatClientHasCorrectReferences(Client client) throws IllegalAccessException {
         var hasAddress = false;
         var hasPhones = false;
-        for (var field: client.getClass().getDeclaredFields()){
+        for (var field : client.getClass().getDeclaredFields()) {
             var fieldLowerName = field.getName().toLowerCase();
-            if (field.getType().equals(Address.class)){
+            if (field.getType().equals(Address.class)) {
                 hasAddress = true;
                 field.setAccessible(true);
                 var fieldValue = field.get(client);
                 assertThatObjectHasExpectedClientFieldValue(fieldValue, client);
             } else if (fieldLowerName.contains("phone") &&
-                    Collection.class.isAssignableFrom(field.getType())){
+                    Collection.class.isAssignableFrom(field.getType())) {
                 hasPhones = true;
                 field.setAccessible(true);
                 var fieldValue = (Collection) field.get(client);
@@ -163,5 +167,5 @@ class HomeworkTest {
             e.printStackTrace();
         }
     }
-*/
+
 }
