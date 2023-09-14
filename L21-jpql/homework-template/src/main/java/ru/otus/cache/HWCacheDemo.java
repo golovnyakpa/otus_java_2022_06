@@ -1,4 +1,4 @@
-package ru.otus.cachehw;
+package ru.otus.cache;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
