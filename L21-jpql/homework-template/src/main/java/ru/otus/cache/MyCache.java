@@ -1,4 +1,4 @@
-package ru.otus.cachehw;
+package ru.otus.cache;
 
 
 import java.util.ArrayList;

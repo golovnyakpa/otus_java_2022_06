@@ -26,11 +26,11 @@ public class DbServiceClientImpl implements DBServiceClient {
             var clientCloned = client.clone();
             if (client.getId() == null) {
                 clientDataTemplate.insert(session, clientCloned);
-                log.info("created client: {}", clientCloned);
+//                log.info("created client: {}", clientCloned);
                 return clientCloned;
             }
             clientDataTemplate.update(session, clientCloned);
-            log.info("updated client: {}", clientCloned);
+//            log.info("updated client: {}", clientCloned);
             return clientCloned;
         });
     }
@@ -39,7 +39,7 @@ public class DbServiceClientImpl implements DBServiceClient {
     public Optional<Client> getClient(long id) {
         return transactionManager.doInReadOnlyTransaction(session -> {
             var clientOptional = clientDataTemplate.findById(session, id);
-            log.info("client: {}", clientOptional);
+//            log.info("client: {}", clientOptional);
             return clientOptional;
         });
     }
